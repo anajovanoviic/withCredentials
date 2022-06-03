@@ -32,13 +32,20 @@ pipeline {
            stage("Stage 2"){
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: '133b314d-d52d-4c4f-ae2f-03a051fed5a4', passwordVariable: 'password', usernameVariable: 'aefintracker')]) {
-    // some block
-} {
+                    withCredentials([
+            usernamePassword(credentialsId: 'gitlab',
+              usernameVariable: 'username',
+              passwordVariable: 'password')
+          ]) {
+            print 'username=' + username + 'password=' + password
+
+            print 'username.collect { it }=' + username.collect { it }
+            print 'password.collect { it }=' + password.collect { it }
+          } {
     
 }{
                 echo "Cloning the Repository..."
-            url: 'https://github.com/ravdy/hello-world.git'
+            git 'https://github.com/ravdy/hello-world.git'
         }
         }
     }
